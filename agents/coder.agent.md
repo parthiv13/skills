@@ -31,7 +31,7 @@ If the prompt is a review-comment step block instead, read the named files, the 
 
 ### Step 2: Build the assigned change
 
-- Write pytest tests for every scenario in section 7, following the testing guide named in the project profile: one test file per production class, one top-level test class per method or cohesive feature, and no nested test classes.
+- Write tests for every scenario in section 7, using the test framework and language of the repository. Follow the testing guide named in the project profile for file, grouping, and naming rules.
 - Name each test method after its scenario, in the scenario's code vocabulary.
 - Implement the production code to satisfy the tests, using the names and signatures from sections 5 and 6 exactly.
 - Preserve the behavior named in section 9.2. Keep new behavior unreachable or behind the configuration key in section 8.1 until the slice named in section 9.1 merges.
@@ -50,7 +50,7 @@ Return this summary to the orchestrator. Use exact field labels and no extra nar
 ```
 Step: {slice ID and title}
 Status: pass | fail | blocked
-Tests run: [<tests/path/test_file.py::TestClass>, ...]
+Tests run: [<test identifier as the project's test runner reports it>, ...]
 Files created: [list]
 Files updated: [list]
 ```
@@ -61,7 +61,7 @@ If the tests could not be made to pass, report:
 
 ```
 Status: fail
-Tests run: [<tests/path/test_file.py::TestClass>, ...]
+Tests run: [<test identifier as the project's test runner reports it>, ...]
 Blocking issue: {description}
 Files written so far: [list]
 ```
@@ -70,7 +70,7 @@ If a requirement is ambiguous, the artifact conflicts with the code, or a depend
 
 ```
 Status: blocked
-Tests run: [<tests/path/test_file.py::TestClass>, ...] or none
+Tests run: [<test identifier as the project's test runner reports it>, ...] or none
 Reason: {clear explanation}
 Question for orchestrator: {what you need to proceed}
 ```

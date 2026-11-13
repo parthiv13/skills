@@ -54,7 +54,7 @@ If the prompt is a review-comment step block instead, read the named files, the 
 
 - Write tests for every scenario under Test scenarios, using the test framework and language of the repository. Follow the testing guide named in the project profile for file, grouping, and naming rules.
 - Name each test method after its scenario, in the scenario's code vocabulary.
-- Run the new tests before writing any production code. Each one must fail. A test that fails to compile counts as failing. Record the failing tests for the report. If a new test passes before the change, the behavior already exists or the test checks nothing: fix the test if it is wrong, otherwise report `Status: blocked` with the scenario ID.
+- When a new test exercises code that already exists, run it before changing that code. It must fail on an assertion. Record it for the report. If it passes, the behavior already exists or the test checks nothing: fix the test, or report `Status: blocked` with the scenario ID. Tests for new code need no run before implementation.
 - Implement the production code to satisfy the tests. Where the artifact gives names and signatures, use them exactly.
 - Preserve everything under Behavior to preserve. If the artifact has Release gating, keep new behavior unreachable or behind its configuration key until the stated condition is met.
 
@@ -74,14 +74,14 @@ Return this summary to the orchestrator. Use exact field labels and no extra nar
 Step: {task ID and title}
 Status: pass | fail | blocked
 Tests run: [<test identifier as the project's test runner reports it>, ...]
-Failed before change: [<new test identifier>, ...]
+Failed before change: [<test identifier>, ...] or none
 Lint: pass | fail | not configured
 Files created: [list]
 Files updated: [list]
 Decisions not in artifact: [list] or none
 ```
 
-`Tests run` and `Failed before change` are required. With an open scope, `Files created` and `Files updated` must list every file you touched.
+`Tests run` and `Failed before change` are required. `Failed before change` lists only new tests that exercise existing code. With an open scope, `Files created` and `Files updated` must list every file you touched.
 
 `Decisions not in artifact` lists only these, one line each:
 

@@ -59,11 +59,11 @@ Done when the coder reports `pass` and every changed file is allowed by the arti
 ## 5. Verify
 
 1. Read the testing guide in the project profile. Run the artifact's required tests with the project's test command. Also run its named existing-behavior tests. Run the lint command from the project profile on the changed files. These runs are the gate; do not rely on the coder's report of its own runs.
-2. Check that every new test the coder wrote appears in its `Failed before change` list. A new test missing from that list is an open issue.
+2. Check that every new test that exercises existing code appears in the coder's `Failed before change` list. Such a test missing from that list is an open issue.
 3. Honor release gates and configuration constraints stated in the artifact. Do not introduce a gate when none is required.
 4. Review the diff for correctness, regressions, and scope. Fix in-scope issues through the `coder` agent and rerun affected tests. Present findings that require changes beyond the artifact before editing.
 
-Done when the required tests, existing-behavior checks, and lint pass, every new test failed before the change, and the diff has no open in-scope correctness issue.
+Done when the required tests, existing-behavior checks, and lint pass, every new test that exercises existing code failed before the change, and the diff has no open in-scope correctness issue.
 
 ## 6. Review with the user locally
 

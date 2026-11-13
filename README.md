@@ -25,9 +25,9 @@ flowchart LR
     prd[to-prd] --> spec[to-spec] --> code[to-code]
     bug[to-bugfix] --> code
     code --> pr[pr] --> review[address-pr-comments]
-    one[to-one-shot] --> coder((coder))
+    one[to-one-shot] --> code
     proto[to-prototype] --> iter[iterate-prototype]
-    code --> coder
+    code --> coder((coder))
     iter --> coder
     review --> coder
     test[testing workflow: not built yet]:::todo
@@ -130,8 +130,8 @@ The most a skill can change. Higher levels are harder to undo, so their gates ar
 | `to-prd` | Workflow | 1 | You |
 | `to-spec` | Workflow | 1 | You |
 | `adr` | Helper | 1 | Model or you |
-| `to-bugfix` | Workflow | 2 | You |
-| `to-one-shot` | Workflow | 2 | You |
+| `to-bugfix` | Workflow | 3 | You |
+| `to-one-shot` | Workflow | 1 | You |
 | `refactor` | Workflow | 2 | Model or you |
 | `wth-is-this` | Workflow | 2 | You |
 | `to-prototype` | Workflow | 3 | You |

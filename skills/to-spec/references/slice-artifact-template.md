@@ -4,7 +4,7 @@
 >
 > The artifact must let a fresh session implement the slice and open its PR from this file alone. Cut every section from the approved master plan and keep the plan's names. Do not copy story text; cite pointers. Do not use stand-in words ("appropriate", "relevant", "valid", "necessary", "process", "handle", "manage", "data") in names or translation rows. Do not include full method bodies. Do not edit the design here first; change the master plan, then update this artifact.
 
-## 1. Identity
+## 1. Task
 
 **1.1 Slice ID:** {NN}
 
@@ -18,7 +18,7 @@
 
 **1.6 Reviewer context:** {one or two sentences for a reviewer who has not read the plan: what this PR delivers in the feature, which PR calls it or first uses it, and what a reader should not expect to find here}
 
-> `to-code` passes 1.6 to the `pr` skill, which puts it under Why. Write it in plain language. It does not repeat the responsibility in 1.3.
+> The pull request description uses 1.6 under Why. Write it in plain language. It does not repeat the responsibility in 1.3.
 
 ## 2. Dependencies
 
@@ -42,9 +42,9 @@
 
 {not in this PR, with owning slice IDs}
 
-## 4. Design (this slice only)
+## 4. Design
 
-> Cut from the plan. Show only this slice's classes and the neighbours they touch. Omit unchanged internals, other slices' classes, and full method bodies. Pick diagram types with the show-me skill.
+> This slice only. Cut from the plan. Show only this slice's classes and the neighbours they touch. Omit unchanged internals, other slices' classes, and full method bodies. Pick diagram types with the show-me skill.
 
 **4.1 Changed call path**
 
@@ -77,7 +77,7 @@ flowchart TD
 | --- | --- | --- | --- | --- |
 | 5.1 | {pointer} | {few words, not story text} | `ClassName.method_name(parameter: Type) -> ReturnType` | {new or existing} |
 
-## 6. Contracts with neighbouring slices
+## 6. Contracts
 
 **6.1 Provides**
 
@@ -99,22 +99,26 @@ flowchart TD
 | --- | --- | --- | --- |
 | {ID} | {ClassName} | {method, input, observable result} | {pointer} |
 
-## 8. Constraints
+## 8. Repository rules
 
-**8.1 Configuration and flag behavior:** {key, behavior when off, behavior when on}
+**8.1 Documents that apply:** {links to the documents, not restated rules}
 
-**8.2 Repository rules that apply:** {links to the documents, not restated rules}
+## 9. Release gating
 
-## 9. Main stays releasable
+> Main stays releasable after this slice merges.
 
 **9.1 Unreachable or flag-gated until:** {slice ID}
 
-**9.2 Existing behavior that must not change:** {class.method, and the test that proves it}
+**9.2 Configuration and flag behavior:** {key, behavior when off, behavior when on}
 
-## 10. Reconcile before implementing
+## 10. Behavior to preserve
 
-**10.1 Merged dependencies to compare against:** {slice IDs, and PR links once known}
+**10.1 Existing behavior that must not change:** {class.method, and the test that proves it}
 
-**10.2 Fields to re-check:** sections 3.1, 4, 5, and 6.2
+## 11. Reconcile before implementing
+
+**11.1 Merged dependencies to compare against:** {slice IDs, and PR links once known}
+
+**11.2 Fields to re-check:** sections 3.1, 4, 5, and 6.2
 
 > Before coding, compare those sections with the code that actually merged. If review changed a name or signature, update this artifact and the master plan. If the design in section 4 is wrong, stop and raise it to the user. Do not change it silently.

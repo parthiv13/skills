@@ -2,7 +2,7 @@
 
 > Author notes start with `>`. Delete them when you fill in the task. This artifact is self-contained and does not need a story or master plan.
 
-## 1. Identity
+## 1. Task
 
 **1.1 Task ID:** BUGFIX-{slug}
 
@@ -15,6 +15,10 @@
 **1.5 Master plan:** None. This is a direct bug fix, not a feature slice.
 
 **1.6 Reviewer context:** {user-visible bug and correction}
+
+**1.7 Branch:** bugfix/{slug}. Implement on this branch. Do not create another.
+
+**1.8 Reproduction commit:** {sha of the commit that added the reproduction test}
 
 ## 2. Dependencies
 
@@ -57,7 +61,7 @@
 | --- | --- | --- | --- | --- |
 | 5.1 | {evidence or report field} | {short phrase} | `{ClassName.method_name(parameter: Type) -> ReturnType}` | {new or existing} |
 
-## 6. Contracts with neighbouring work
+## 6. Contracts
 
 **6.1 Provides:** {public signatures used elsewhere, or none}
 
@@ -71,25 +75,27 @@
 
 **7.2 Reproduction test:** {test path}, run with {run configuration or command}. It fails before the fix. It is the acceptance check: it must pass after the fix. Do not weaken, rename, or remove its assertions; extend it or add tests alongside it.
 
-## 8. Constraints
+## 8. Repository rules
 
-**8.1 Configuration behavior:** {key and behavior, or "No configuration changes."}
-
-**8.2 Repository rules that apply.** Paths come from the project profile:
+**8.1 Documents that apply.** Paths come from the project profile:
 
 - Testing guide: {path}
 - Code conventions: {path}
 - Language conventions: {path}
 - Naming conventions: {path}
 
-## 9. Main stays releasable
+## 9. Release gating
 
-**9.1 This is a direct correction to existing behavior.** Do not add a feature flag or introduce behavior beyond the confirmed fix. If the requested change is a feature rather than a bug correction, stop and report it.
+**9.1 None. This is a direct correction to existing behavior.** Do not add a feature flag or introduce behavior beyond the confirmed fix. If the requested change is a feature rather than a bug correction, stop and report it.
 
-**9.2 Existing behavior that must not change:** {behavior and the test that covers it}
+**9.2 Configuration behavior:** {key and behavior, or "No configuration changes."}
 
-## 10. Reconcile before implementing
+## 10. Behavior to preserve
 
-**10.1 Dependencies to compare against:** none
+**10.1 Existing behavior that must not change:** {behavior and the test that covers it}
 
-**10.2 Re-check sections 3.1, 4, 5, and 6.2 against the current code.** If a scope, behavior, or contract mismatch appears, stop and report it before editing.
+## 11. Reconcile before implementing
+
+**11.1 Dependencies to compare against:** none
+
+**11.2 Re-check sections 3.1, 4, 5, and 6.2 against the current code.** If a scope, behavior, or contract mismatch appears, stop and report it before editing.

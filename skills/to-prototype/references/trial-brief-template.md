@@ -1,6 +1,6 @@
 # PROTOTRIAL-{slug}-{number}: {short title}
 
-## 1. Identity
+## 1. Task
 
 **1.1 Task ID:** PROTOTRIAL-{slug}-{number}
 
@@ -16,29 +16,33 @@
 
 **1.7 No PRD, spec, or master plan.** Do not create any.
 
-## 2. Test scenarios
+## 2. Scope
+
+**2.1** Open: choose the files the scenarios need and report each one.
+
+**2.2** Do not commit, push, or switch branches.
+
+**2.3 Not in scope:** {behavior or files the user excluded, or "None stated."}
+
+## 3. Test scenarios
 
 | ID | Class or area | Behavior to verify |
 | --- | --- | --- |
-| 2.1 | {existing class or function} | {input condition and observable result} |
+| 3.1 | {existing class or function} | {input condition and observable result} |
 
-## 3. Accepted expectations
+## 4. Accepted expectations
 
-**3.1** {current accepted expectation, copied from the artifact}
+**4.1** {current accepted expectation, copied from the artifact}
 
-## 4. Behavior to preserve
+## 5. Behavior to preserve
 
-**4.1** Existing behavior of production code outside the prototype. {or "None identified."}
+**5.1** Existing behavior of production code outside the prototype. {or "None identified."}
 
-## 5. Constraints
+## 6. Repository rules
 
-**5.1** No file allow-list. Choose the files the scenarios need and report each one.
+**6.1** Use names that already exist in the code. Report a name that looks wrong instead of renaming it.
 
-**5.2** Use names that already exist in the code. Report a name that looks wrong instead of renaming it.
-
-**5.3** Do not commit, push, or switch branches.
-
-**5.4 Repository rules that apply.** Paths come from the project profile:
+**6.2 Documents that apply.** Paths come from the project profile:
 
 - Testing guide: {path}
 - Code conventions: {path}

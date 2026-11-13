@@ -1,6 +1,6 @@
 ---
 name: to-code
-description: "Implement a scoped coding artifact, verify and review the changes, then prepare a pull request. Use with a direct task artifact or a sequenced set of artifacts."
+description: "Implement a coding artifact, verify and review the changes, then prepare a pull request. The artifact needs at least a task and test scenarios. An index that orders several artifacts also works."
 argument-hint: "Path to the coding artifact or artifact index."
 disable-model-invocation: true
 ---
@@ -13,17 +13,9 @@ Number each point in chat so the user can reply to it. Put questions in numbered
 
 ## Artifact requirements
 
-Before coding, confirm that the selected artifact provides:
+Before coding, confirm that the selected artifact has the two required headings in the artifact contract of the `coder` agent: Task and Test scenarios. Scope, Behavior to preserve, and Repository rules have fallbacks that the coder applies and reports. Scope is either a list of allowed files or open; a missing Scope counts as open. Use the optional headings (Release gating, Design, Business-to-code translation, Contracts) when present.
 
-- A task identity or title and a clear implementation responsibility.
-- The requested or confirmed behavior, including the condition that triggers it and the expected outcome.
-- The exact files allowed to change, with each file's responsibility, and any explicit exclusions.
-- The relevant existing code flow and intended correction or design.
-- Required contracts, dependencies, and configuration behavior, or a clear statement that none are added.
-- Test scenarios and existing behavior that must remain unchanged.
-- Any implementation constraints, release gates, and review context.
-
-Artifacts may use different section names and formats. A direct-coding task can stand alone. An index, master plan, or lifecycle status is optional. When an artifact set supplies these, follow them. Do not invent missing behavior or expand the allowed files. If a required detail is missing or conflicts with the code, ask the user before implementation.
+A direct task can stand alone. An index, master plan, or lifecycle status is optional. When an artifact set supplies these, follow them. Do not invent missing behavior or expand the allowed files. If a required heading is missing or its content conflicts with the code, ask the user before implementation.
 
 ## 1. Select the work
 
@@ -43,34 +35,39 @@ Done when the artifact matches the code or the user has approved each necessary 
 
 ## 3. Branch
 
-Create a new branch from the remote default branch (`origin/main` unless the project profile names another): run `git fetch origin`, then branch from that remote ref, not from the local default branch or the current branch. Use the artifact's task ID when present. Otherwise use a short branch name that reflects the work, such as `bugfix/{slug}` or `feature/{slug}`.
+Do not overwrite or discard existing work. If the worktree is not clean, stop and ask how the user wants to handle it.
 
-Do not overwrite or discard existing work. If the worktree is not clean, stop and ask how the user wants to handle it. Update the artifact or associated index to `in progress` only if it has a status field.
+1. If the artifact names a branch, such as the Branch field of a bugfix task, check out that branch instead of creating one. If it records a reproduction commit, confirm the branch history contains that commit. Stop if the branch or commit is missing.
+2. Otherwise create a new branch from the remote default branch (`origin/main` unless the project profile names another): run `git fetch origin`, then branch from that remote ref, not from the local default branch or the current branch. Use the artifact's task ID when present. Otherwise use a short branch name that reflects the work, such as `feature/{slug}`.
+3. Update the artifact or associated index to `in progress` only if it has a status field.
 
-Done when the branch starts at the remote default branch, the worktree is clean, and any supplied status field shows `in progress`.
+Done when the worktree is clean, the branch is the one the artifact names or a new one from the remote default branch, and any supplied status field shows `in progress`.
 
 ## 4. Implement through the `coder` agent
+
+If the artifact records a reproduction test, run it with the project's test command before delegating. It must fail. If it passes, stop and tell the user: the bug may already be fixed on the branch's base.
 
 Delegate implementation to the repository's `coder` agent. Pass the selected artifact content unchanged as the step block and include its path. The coder returns the report fields defined in its contract: step, status, tests run, files created, and files updated.
 
 1. On `Status: pass`, continue to Section 5.
 2. On `Status: fail` or `Status: blocked`, show the coder's report and ask what to do. Do not weaken or remove tests to get a pass.
-3. Compare the coder's files with the artifact's allowed-file list. A file outside that list is not kept until the user approves it.
+3. When Scope lists files, compare the coder's files with that list. A file outside it is not kept until the user approves it. When Scope is open or missing, show the user every file the coder created or updated. No file is kept until the user approves it.
 4. If the coder or delegation is unavailable, tell the user and ask how to proceed. Do not silently write the implementation yourself.
 
-Done when the coder reports `pass` and every changed file is allowed by the artifact or approved by the user.
+Done when the coder reports `pass` and every changed file is allowed by the artifact's Scope or approved by the user.
 
 ## 5. Verify
 
-1. Read the testing guide in the project profile. Run the artifact's required tests with the project's test command. Also run its named existing-behavior tests.
-2. Honor release gates and configuration constraints stated in the artifact. Do not introduce a gate when none is required.
-3. Review the diff for correctness, regressions, and scope. Fix in-scope issues through the `coder` agent and rerun affected tests. Present findings that require changes beyond the artifact before editing.
+1. Read the testing guide in the project profile. Run the artifact's required tests with the project's test command. Also run its named existing-behavior tests. Run the lint command from the project profile on the changed files. These runs are the gate; do not rely on the coder's report of its own runs.
+2. Check that every new test that exercises existing code appears in the coder's `Failed before change` list. Such a test missing from that list is an open issue.
+3. Honor release gates and configuration constraints stated in the artifact. Do not introduce a gate when none is required.
+4. Review the diff for correctness, regressions, and scope. Fix in-scope issues through the `coder` agent and rerun affected tests. Present findings that require changes beyond the artifact before editing.
 
-Done when the required tests and existing-behavior checks pass and the diff has no open in-scope correctness issue.
+Done when the required tests, existing-behavior checks, and lint pass, every new test that exercises existing code failed before the change, and the diff has no open in-scope correctness issue.
 
 ## 6. Review with the user locally
 
-Present the implementation and changed call path for local review. Compare the behavior with the artifact's design, link each changed file, and state its responsibility.
+Present the implementation and changed call path for local review. Compare the behavior with the artifact's design, link each changed file, and state its responsibility. List each item from the coder's `Decisions not in artifact` as its own numbered point for the user to accept or change. An accepted decision that changes a name, file, or design goes through Section 7.
 
 1. Number each point the user may want to comment on, using stable hierarchical numbers such as `1.1` for a file and `1.1.1` for a method.
 2. For each comment the user accepts, have the `coder` agent make the change using a step block that names the files, comment, and affected artifact sections. Rerun affected tests.
@@ -113,7 +110,7 @@ Wait for the user to say the pull request is merged. Do not verify it through `g
 
 ## Rules
 
-- One artifact, one pull request. Never implement outside its allowed-file list without the user's approval.
+- One artifact, one pull request. Never keep a file outside the artifact's Scope without the user's approval. With an open or missing Scope, every file needs the user's approval.
 - The artifact defines behavior, scope, design, names, and tests. Do not rename or restructure on your own. Raise a numbered question instead.
 - Do not commit, push, or create a pull request without the user's approval of the exact files and message.
 - Do not weaken or remove tests to make them pass.

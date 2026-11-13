@@ -18,7 +18,7 @@
 
 **1.6 Reviewer context:** {one or two sentences for a reviewer who has not read the plan: what this PR delivers in the feature, which PR calls it or first uses it, and what a reader should not expect to find here}
 
-> `to-code` passes 1.6 to the `pr` skill, which puts it under Why. Write it in plain language. It does not repeat the responsibility in 1.3.
+> The pull request description uses 1.6 under Why. Write it in plain language. It does not repeat the responsibility in 1.3.
 
 ## 2. Dependencies
 

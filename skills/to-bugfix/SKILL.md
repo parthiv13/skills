@@ -55,6 +55,6 @@ Done when the diagnosis artifact is complete and, for a confirmed bug, the regre
 ## Boundaries
 
 - Do not edit production code or create a pull request.
-- Commit only the files this skill created, which is the reproduction test, and only after the user approves the files and message. Do not push. Regression tests and the fix are written and committed later through `to-code`.
+- Commit only the files this skill created, which is the reproduction test, and only after the user approves the files and message. Do not push.
 - Do not weaken, rewrite, or remove pre-existing tests.
 - Preserve unrelated working-tree changes.

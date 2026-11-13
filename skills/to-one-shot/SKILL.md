@@ -1,13 +1,13 @@
 ---
 name: to-one-shot
-description: "Plan a code change as approved test scenarios in a one-shot artifact, with no PRD or spec, for to-code to implement and take to a pull request. Use for changes that have no documentation behind them."
+description: "Plan a code change as approved test scenarios in a one-shot artifact, with no PRD or spec. Use for changes that have no documentation behind them."
 argument-hint: "Describe the change you want. Name the files or behavior involved if you know them."
 disable-model-invocation: true
 ---
 
 # Undocumented change to an approved plan
 
-Turn a change request into approved test scenarios in a one-shot artifact. The `to-code` skill implements the artifact and takes it to a pull request. The only plan is the test scenarios. There is no design document, class inventory, or file allow-list.
+Turn a change request into approved test scenarios in a one-shot artifact. The only plan is the test scenarios. There is no design document, class inventory, or file allow-list.
 
 Prerequisite: a change request in your words. Optional source material, such as notes or an artifact, is read as evidence, not as approved requirements.
 
@@ -41,9 +41,9 @@ Done when the user has explicitly approved the scenarios.
 
 ## 4. Hand off
 
-Tell the user the artifact path. Say that `to-code` implements it: it creates the branch, runs `coder`, verifies, reviews the change with the user locally, and opens the pull request. Do not start `to-code` or `coder`. The user decides when to run it.
+Tell the user the artifact path. Do not start any other workflow or agent. The user decides what to do with the artifact.
 
-If `to-code` later reports a `fail` or `blocked` result and the user wants to refine the scenarios, update this artifact in place and get approval for the changed scenarios as in step 3.
+If the user later wants to refine the scenarios, update this artifact in place and get approval for the changed scenarios as in step 3.
 
 Done when the user has the artifact path.
 

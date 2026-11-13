@@ -33,7 +33,7 @@
 | File | Class | Responsibility | New or existing |
 | --- | --- | --- | --- |
 | {path} | {class or symbol} | {production correction or regression test} | {new or existing} |
-| {reproduction test path} | {test class} | Reproduction test kept by the diagnosis; must pass after the fix | existing |
+| {reproduction test file} | {test class and test name} | Reproduction test kept by the diagnosis; must pass after the fix | existing |
 
 **3.2 Not in scope:** {related behavior or files excluded from this fix}
 
@@ -73,7 +73,7 @@
 | --- | --- | --- | --- |
 | 7.1 | {ClassName} | {input condition and observable corrected result} | {pointer} |
 
-**7.2 Reproduction test:** {test path}, run with {run configuration or command}. It fails before the fix. It is the acceptance check: it must pass after the fix. Do not weaken, rename, or remove its assertions; extend it or add tests alongside it.
+**7.2 Reproduction test:** {test name} in {test file}, run with {run configuration or command}. It fails before the fix. It is the acceptance check: it must pass after the fix. Do not weaken, rename, or remove its assertions; extend it or add tests alongside it.
 
 ## 8. Repository rules
 
@@ -98,4 +98,4 @@
 
 **11.1 Dependencies to compare against:** none
 
-**11.2 Re-check sections 3.1, 4, 5, and 6.2 against the current code.** If a scope, behavior, or contract mismatch appears, stop and report it before editing.
+**11.2 Re-check Create or change, Design, Business-to-code translation, and Expects against the current code.** If a scope, behavior, or contract mismatch appears, stop and report it before editing.

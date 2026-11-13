@@ -52,7 +52,7 @@ Build a brief from [the trial brief template](./references/trial-brief-template.
 
 1. Show the files `coder` created and updated. Commit them to the prototype branch only after the user approves the exact files and message. Stage only those files. Record the commit sha, or `None` if nothing was committed.
 2. Fill in the trial entry: change made, coder status, result in observed terms, and effect on expectations.
-3. If the result suggests an expectation change, state it as a proposal. Change section 2 of the artifact and append a history entry only after the user approves.
+3. If the result suggests an expectation change, state it as a proposal. Change the artifact's Accepted expectations section and append a history entry only after the user approves.
 
 Tell the user the artifact path and the branch name. Do not start any other workflow or agent. The user decides what happens next.
 

@@ -55,7 +55,7 @@ Done when the trial entry is complete and the user has said what happens next.
 
 Do this only when the user declares the work done.
 
-1. Fill section 5 of the artifact. Keep observations, inferences and open questions in separate lists. Cite the trial behind each observation. Do not turn an inference into an observation.
+1. Fill the artifact's Assessment section. Keep observations, inferences and open questions in separate lists. Cite the trial behind each observation. Do not turn an inference into an observation.
 2. Ask the user for the reuse decision: `findings only` or `findings and prototype code`. If the user chooses code, list the code paths on the prototype branch. Do not recommend or decide it for them.
 3. Show the assessment and apply the user's corrections in place. Set its status to `done` when the user confirms.
 

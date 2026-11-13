@@ -13,6 +13,10 @@ Prerequisite: a change request in your words. Optional source material, such as 
 
 Number each point in chat so the user can reply to it.
 
+## Artifact review
+
+Where a step below says to run the artifact review, follow the [artifact-review](../artifact-review/SKILL.md) skill. The rules are this skill. The source of truth is the user's change request in the user's words, and any source material.
+
 ## 1. Understand the request
 
 Read the code and tests the request touches, and the project rules named in the project profile that apply. Ask a numbered question only when the request is ambiguous or conflicts with the code. Do not invent behavior the user did not ask for.
@@ -35,7 +39,7 @@ Do not add a class inventory, call tree, or file list. Use names that already ex
 
 ## 3. Refine and get approval
 
-Follow the presenting and approval rules in [test-scenarios](../test-scenarios/SKILL.md). The user may go through as many rounds as needed.
+Before the first presentation, run the artifact review. Then follow the presenting and approval rules in [test-scenarios](../test-scenarios/SKILL.md). The user may go through as many rounds as needed.
 
 Done when the user has explicitly approved the scenarios.
 
@@ -51,5 +55,5 @@ Done when the user has the artifact path.
 
 - Do not edit production or test code.
 - Do not create branches, commit, push, or open a pull request.
-- Do not start any other workflow or agent.
+- Do not start any other workflow or agent, apart from the `artifact-reviewer` agent in step 3.
 - Preserve unrelated working-tree changes.

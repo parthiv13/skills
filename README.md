@@ -30,6 +30,9 @@ flowchart LR
     code --> coder((coder))
     iter --> coder
     review --> coder
+    spec -.-> reviewer((artifact-reviewer))
+    bug -.-> reviewer
+    one -.-> reviewer
     test[testing workflow: not built yet]:::todo
 
     classDef todo stroke-dasharray: 5 5
@@ -100,6 +103,7 @@ In progress.
 | `writing-agent` | Rule | Docs for an expert reader, with real names and numbered points. |
 | `test-scenarios` | Helper | One row per scenario, with concrete values. |
 | `show-me` | Helper | Diagrams and code sketches with real names. |
+| `artifact-review` | Helper | A fresh-context reviewer checks an artifact before you see it. You get a list of what it fixed and what you decide. |
 
 </details>
 
@@ -125,6 +129,7 @@ The most a skill can change. Higher levels are harder to undo, so their gates ar
 | `unslop` | Rule | 0 | Always on |
 | `writing-agent` | Rule | 1 | Model or you |
 | `show-me` | Helper | 0 | Model or you |
+| `artifact-review` | Helper | 1 | Model or you |
 | `test-scenarios` | Helper | 1 | Model or you |
 | `retro` | Workflow | 0 | You |
 | `to-prd` | Workflow | 1 | You |
@@ -140,6 +145,7 @@ The most a skill can change. Higher levels are harder to undo, so their gates ar
 | `pr` | Workflow | 4 | Model or you |
 | `address-pr-comments` | Workflow | 4 | Model or you |
 | `coder` | Agent | 2 | Workflows only |
+| `artifact-reviewer` | Agent | 0 | Workflows only |
 
 </details>
 
@@ -158,7 +164,7 @@ The most a skill can change. Higher levels are harder to undo, so their gates ar
 <!-- TODO: depends on the target tool (Claude Code only, or also Copilot). -->
 
 1. {Copy or link `skills/` into the target repository's skills folder.}
-2. {Copy or link `agents/coder.agent.md` into the target repository's agents folder.}
+2. {Copy or link `agents/coder.agent.md` and `agents/artifact-reviewer.agent.md` into the target repository's agents folder.}
 3. Paste [the project profile template](templates/AGENTS-project-profile.md) into the target repository's `AGENTS.md` and fill in every blank.
 4. Add [the always-on rules](docs/AGENTS.md) to the target repository's always-loaded instructions.
 

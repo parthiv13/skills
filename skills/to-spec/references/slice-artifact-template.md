@@ -18,7 +18,7 @@
 
 **1.6 Reviewer context:** {one or two sentences for a reviewer who has not read the plan: what this PR delivers in the feature, which PR calls it or first uses it, and what a reader should not expect to find here}
 
-> The pull request description uses 1.6 under Why. Write it in plain language. It does not repeat the responsibility in 1.3.
+> The pull request description uses Reviewer context under Why. Write it in plain language. It does not repeat Responsibility.
 
 ## 2. Dependencies
 
@@ -93,7 +93,7 @@ flowchart TD
 
 ## 7. Test scenarios
 
-> Copy this slice's scenarios from the plan in full, with their IDs. Write each in code vocabulary from section 5. Cite acceptance criteria by pointer only.
+> Copy this slice's scenarios from the plan in full, with their IDs. Write each in code vocabulary from Business-to-code translation. Cite acceptance criteria by pointer only.
 
 | ID | Class | Behavior to verify | AC pointer |
 | --- | --- | --- | --- |
@@ -119,6 +119,6 @@ flowchart TD
 
 **11.1 Merged dependencies to compare against:** {slice IDs, and PR links once known}
 
-**11.2 Fields to re-check:** sections 3.1, 4, 5, and 6.2
+**11.2 Fields to re-check:** Create or change, Design, Business-to-code translation, and Expects
 
-> Before coding, compare those sections with the code that actually merged. If review changed a name or signature, update this artifact and the master plan. If the design in section 4 is wrong, stop and raise it to the user. Do not change it silently.
+> Before coding, compare those sections with the code that actually merged. If review changed a name or signature, update this artifact and the master plan. If the Design section is wrong, stop and raise it to the user. Do not change it silently.

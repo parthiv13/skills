@@ -23,7 +23,7 @@ Number each point in chat so the user can reply to it.
 ## 2. Write each scenario
 
 1. Give each scenario a numeric ID.
-2. State the input condition and the observable result. Write both in the code's own vocabulary: the method, the input, and the result type or side effect involved.
+2. State the input condition and the observable result. Write both in the code's own vocabulary: the method, the input, and the result type or side effect involved. When the result is a side effect on a collaborator, name the call and its exact arguments.
 3. When the behavior computes something, use concrete numbers. Show the input and the expected output as values, not prose.
 4. When the computation takes more than one step, show the working as arithmetic, one line per step. Use symbols and numbers, not sentences.
 5. Use the core columns: ID, class or area, and behavior to verify. The calling skill's template may add a column, such as evidence.
@@ -47,7 +47,7 @@ Nothing in a scenario list is verbose. This covers scenarios, mismatch notes, an
 
 ## 4. Report mismatches
 
-Compare each scenario with its source of truth. If a scenario and the source disagree, or the source leaves behavior unspecified, note it as section 3 describes. Do not resolve it on the user's behalf. The user decides whether to keep the scenario or change the source.
+Compare each scenario with its source of truth. If a scenario and the source disagree, or the source leaves behavior unspecified, note it as "Keep it terse" describes. Do not resolve it on the user's behalf. The user decides whether to keep the scenario or change the source.
 
 ## 5. Present and get approval
 

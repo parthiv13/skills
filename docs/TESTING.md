@@ -17,6 +17,10 @@
   2. Fake: in-memory version of a dependency, such as a fake database.
   3. Stub: returns canned data, no behavior.
   4. Mock (interaction): verifies method calls. Use sparingly.
+- **Keep doubles strict.** "Test state, not interactions" decides whether to assert a call. These rules decide how strictly:
+  1. A stub answers only the arguments the test expects. A stub that returns the same value for any input hides a call with the wrong argument.
+  2. Assert a call on a double only when the call is the observable outcome, such as a write to an I/O service. Then assert its exact arguments. Do not use an any-matcher or a bare "was called" assertion.
+  3. Bind every double to the real collaborator's signature with the language's spec or autospec feature, so a signature change breaks the test.
 - Test only your code, not framework or third-party behavior.
 - Keep tests deterministic. No dependence on timing or test order.
 - Each test sets up and tears down its own state, so tests pass individually and together.

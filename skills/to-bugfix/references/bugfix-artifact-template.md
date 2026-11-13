@@ -26,7 +26,9 @@
 
 ## Reproduction test
 
-**Test path:** {path}
+**Test file:** {path}
+
+**Test name:** {test name}
 
 **Test scenario:** {scenario}
 

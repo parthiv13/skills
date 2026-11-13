@@ -17,6 +17,10 @@ The user reviews all generated code, and large change sets are hard to review. T
 
 Keep all documents under the repository-root `to-spec/` directory. A story ID is the story's file name without `.md`, for example `checkout-tax-rounding` for `to-prd/checkout-tax-rounding.md`. The master plan is one evolving Markdown document for a related story set, named with the story IDs, for example `to-spec/tax-rounding-cart-totals-spec.md`. Slice artifacts go in a sibling directory with the same stem, for example `to-spec/tax-rounding-cart-totals/`. Do not change story content as part of this workflow.
 
+## Artifact review
+
+Where a step below says to run the artifact review, follow the [artifact-review](../artifact-review/SKILL.md) skill. The rules are this skill. The source of truth is the story files, and after the code flow is approved, the approved parts of the master plan.
+
 ## 1. Retrieve and sequence stories
 
 1. Collect all story IDs provided by the user. If a story's text is missing or its file cannot be read, ask for the story text or state what could not be read; do not invent story content.
@@ -35,6 +39,7 @@ Create a high-level design for the requested behavior, grounded in the stories a
 3. The code conventions and language conventions docs, for service and computation classes, method shape, and language rules.
 4. The extended coding rules, for the extended defaults and safety constraints.
 5. The domain doc, for domain concepts and external contracts that affect the design.
+6. The design guide, for patterns that have made plans worse before. Check the flow and the class inventory against each entry.
 
 Use these documents to keep each proposed class to one responsibility. The check runs both ways. Before finalizing the class inventory, check every new and changed class: split a class that owns more than one responsibility, and fold a class that fails the test below into its caller as a private method. Name the responsibility of each class in the inventory. If a requirement forces a class to carry several responsibilities, raise it to the user as a numbered question instead of accepting it silently.
 
@@ -86,11 +91,13 @@ Use numbered pointers throughout the document so the user can refer to specific 
 5. Explicit assumptions that do not change story behavior.
 6. For each story, a short scope note listing the distinct responsibilities and layers it touches (for example pure computation, service with I/O, configuration, orchestration), and which classes are shared with other stories. This feeds the slice-boundary review in Section 4.
 
-Review the design in two steps. First, before writing the full document, send the user a compact class outline in chat: a structure tree with one line per new class, its type, and the total count of new classes. Stop and wait for approval of the structure. Then save the full proposal in `to-spec/` with the class outline and its count near the top, ahead of the questions, and ask the user to review the sequence and code flow. Stop and wait for their feedback and approval before preparing test scenarios as a confirmed plan. Revise the same document in place. Do not treat silence or a request to continue drafting as approval to proceed.
+Review the design in two steps. First, before writing the full document, send the user a compact class outline in chat: a structure tree with one line per new class, its type, and the total count of new classes. Stop and wait for approval of the structure. Then save the full proposal in `to-spec/` with the class outline and its count near the top, ahead of the questions. Run the artifact review, then ask the user to review the sequence and code flow. Stop and wait for their feedback and approval before preparing test scenarios as a confirmed plan. Revise the same document in place. Do not treat silence or a request to continue drafting as approval to proceed.
+
+When the user rejects or corrects a design for a reason that would apply beyond this spec, offer to add it to the design guide as a new entry in that guide's format. Do not edit the guide without the user's confirmation, and tell the user what you added.
 
 ## 3. Propose test scenarios
 
-After the user approves the code flow, decide, write, and present the test scenarios following the [test-scenarios](../test-scenarios/SKILL.md) skill. The source of truth is the story's acceptance criteria. Map each scenario to its criterion where possible. Write each scenario in code vocabulary from the translation table, and reference the criterion by pointer instead of copying its text. Report any gap or drift between the story and the proposed scenarios as that skill describes.
+After the user approves the code flow, decide and write the test scenarios following the [test-scenarios](../test-scenarios/SKILL.md) skill. Run the artifact review, then present them as that skill describes. The source of truth is the story's acceptance criteria. Map each scenario to its criterion where possible. Write each scenario in code vocabulary from the translation table, and reference the criterion by pointer instead of copying its text. Report any gap or drift between the story and the proposed scenarios as that skill describes.
 
 Keep the scenarios in the `to-spec/` document and revise it in place. Wait for explicit approval of both the flow and test scenarios before proposing slices.
 
@@ -110,7 +117,7 @@ Derive slices bottom-up from the plan's dependency graph: leaf computation first
 
 Present the outline by invoking the `show-me` skill: a dependency diagram of the slices plus a table with these columns: slice ID, story ID, one-sentence responsibility, classes and files touched with the responsibility of each, depends on, and which of the five tests justifies the boundary (and why). State which slices could be developed in parallel, even though the user will merge them in order.
 
-Save the outline in the master plan and ask the user to review it. Revise until approved. Do not treat silence as approval.
+Save the outline in the master plan, run the artifact review, and ask the user to review it. Revise until approved. Do not treat silence as approval.
 
 ## 5. Write the slice artifacts
 
@@ -127,13 +134,15 @@ The numeric prefix is the merge order. Each slice artifact must let a fresh sess
 
 Use the same `show-me` guidance for any visual in an artifact. The no-implementation rule from Section 2 applies: names, signatures, and the pseudocode carried in translation rows are allowed; full method bodies are not.
 
+When the index and every artifact are written, run the artifact review on all of them.
+
 Do not implement any slice, create branches, or open pull requests.
 
 ## 6. Hand off and handle revisions
 
-Finish with a concise summary: stories covered, the number of slices per story, the merge order, and links to the master plan, `index.md`, and each artifact. Tell the user that implementing a slice and opening its PR is handled by a separate skill, one artifact at a time, with the user reviewing and merging each PR before the next slice starts.
+Finish with a concise summary: stories covered, the number of slices per story, the merge order, links to the master plan, `index.md`, and each artifact, and the Review list from that review. Tell the user that implementing a slice and opening its PR is handled by a separate skill, one artifact at a time, with the user reviewing and merging each PR before the next slice starts.
 
-If the user later reports that review feedback or a merged change affects the plan, revise the master plan, `index.md`, and every unmerged artifact that is affected. Never edit the artifact of a merged slice. Keep identifiers stable.
+If the user later reports that review feedback or a merged change affects the plan, revise the master plan, `index.md`, and every unmerged artifact that is affected, then run the artifact review on the changed artifacts. Never edit the artifact of a merged slice. Keep identifiers stable.
 
 ## Rules
 
@@ -142,6 +151,7 @@ If the user later reports that review feedback or a merged change affects the pl
 - Apply the `writing-agent` skill (and its `unslop` rules) to the spec, the artifacts, and every chat message in this workflow. Number each point in chat replies so the user can reference it.
 - Every story-related question must include its story ID and exact procedure, acceptance-test, or section pointer, plus enough context to verify the concern against the source.
 - Make review gates explicit. User approval is required after code-flow review, after unit-test scenario review, and after the slice-boundary outline. Artifacts are written only after the outline is approved.
+- Run the artifact review before each gate. Its findings reach the user with the artifact; they never stand in for the user's approval.
 - Slice boundaries are justified by meaning, never by line, file, or class counts. One PR belongs to exactly one story.
 - Use high-level names and diagrams for the design, produced through the `show-me` skill. The specification has no full implementations; pseudocode appears only in the translation table.
 - Prefer evidence over generic concerns. Do not manufacture ambiguity, missing requirements, or SOLID violations.

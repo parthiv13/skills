@@ -8,8 +8,8 @@ A skill that needs a value left blank here stops and asks you. It does not guess
 
 - Test command:
 - Lint command:
-- Default branch: main
-- Code host and CLI: GitHub (`gh`)
+- Default branch:
+- Code host and CLI:
 
 ### Guides
 
@@ -22,11 +22,12 @@ Paths relative to the repository root. Leave a line blank if the project has no 
 - Glossary:
 - Domain doc:
 - Engineering principles:
+- Design guide:
 - Structure guide:
 - Extended coding rules:
 - PR template:
-- ADR folder: docs/adr/
-- LLM instruction index: AGENTS.md
+- ADR folder:
+- LLM instruction index:
 
 ### Architecture vocabulary
 

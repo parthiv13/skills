@@ -37,6 +37,6 @@ Before you report a task output as done, check the real thing directly. Do not i
 
 ## Boundaries
 
-- Where a workflow skill forbids writing tests or code, do not write them. The claim stays an assumption (section 1). Say what test would confirm it.
+- Where a workflow skill forbids writing tests or code, do not write them. The claim stays an assumption (see "Mark assumptions"). Say what test would confirm it.
 - Do not weaken or remove a test to confirm a claim.
 - Do not name a successor skill or agent.

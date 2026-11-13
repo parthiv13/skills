@@ -1,6 +1,6 @@
 ---
 name: to-code
-description: "Implement a coding artifact, verify and review the changes, then prepare a pull request. Use with a to-spec slice or index, a to-bugfix task, or a to-one-shot artifact."
+description: "Implement a coding artifact, verify and review the changes, then prepare a pull request. The artifact needs at least a task and test scenarios. An index that orders several artifacts also works."
 argument-hint: "Path to the coding artifact or artifact index."
 disable-model-invocation: true
 ---

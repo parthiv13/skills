@@ -13,7 +13,7 @@ Number each point in chat so the user can reply to it. Put questions in numbered
 
 ## Artifact requirements
 
-Before coding, confirm that the selected artifact has every required heading in the artifact contract of the `coder` agent: Task, Scope, Test scenarios, Behavior to preserve, and Repository rules. Scope is either a list of allowed files or open. Use the optional headings (Release gating, Design, Business-to-code translation, Contracts) when present.
+Before coding, confirm that the selected artifact has the two required headings in the artifact contract of the `coder` agent: Task and Test scenarios. Scope, Behavior to preserve, and Repository rules have fallbacks that the coder applies and reports. Scope is either a list of allowed files or open; a missing Scope counts as open. Use the optional headings (Release gating, Design, Business-to-code translation, Contracts) when present.
 
 A direct task can stand alone. An index, master plan, or lifecycle status is optional. When an artifact set supplies these, follow them. Do not invent missing behavior or expand the allowed files. If a required heading is missing or its content conflicts with the code, ask the user before implementation.
 
@@ -51,7 +51,7 @@ Delegate implementation to the repository's `coder` agent. Pass the selected art
 
 1. On `Status: pass`, continue to Section 5.
 2. On `Status: fail` or `Status: blocked`, show the coder's report and ask what to do. Do not weaken or remove tests to get a pass.
-3. When Scope lists files, compare the coder's files with that list. A file outside it is not kept until the user approves it. When Scope is open, show the user every file the coder created or updated. No file is kept until the user approves it.
+3. When Scope lists files, compare the coder's files with that list. A file outside it is not kept until the user approves it. When Scope is open or missing, show the user every file the coder created or updated. No file is kept until the user approves it.
 4. If the coder or delegation is unavailable, tell the user and ask how to proceed. Do not silently write the implementation yourself.
 
 Done when the coder reports `pass` and every changed file is allowed by the artifact's Scope or approved by the user.
@@ -110,7 +110,7 @@ Wait for the user to say the pull request is merged. Do not verify it through `g
 
 ## Rules
 
-- One artifact, one pull request. Never keep a file outside the artifact's Scope without the user's approval. With an open Scope, every file needs the user's approval.
+- One artifact, one pull request. Never keep a file outside the artifact's Scope without the user's approval. With an open or missing Scope, every file needs the user's approval.
 - The artifact defines behavior, scope, design, names, and tests. Do not rename or restructure on your own. Raise a numbered question instead.
 - Do not commit, push, or create a pull request without the user's approval of the exact files and message.
 - Do not weaken or remove tests to make them pass.

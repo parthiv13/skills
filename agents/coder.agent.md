@@ -1,6 +1,6 @@
 ---
 name: coder
-description: An opinionated coding agent that implements one coding artifact (a to-spec slice, a bugfix task, a one-shot task, or a prototype trial brief) in the project's repository.
+description: Implements one coding artifact in the project's repository. The artifact needs at least a task and test scenarios.
 argument-hint: "<artifact path, plus optional review-comment step block>"
 ---
 
@@ -15,17 +15,20 @@ You find what you need by heading name, not by section number. A heading may sit
 Required headings:
 
 1. **Task.** The task ID and its one-sentence responsibility. May link a plan.
-2. **Scope.** Either a table of the files and classes allowed to change, or the line `Open: choose the files the scenarios need and report each one.` Also lists what is not in scope.
-3. **Test scenarios.** The scenarios to cover, with IDs.
-4. **Behavior to preserve.** Existing behavior that must not change, and the tests that cover it.
-5. **Repository rules.** Links to the documents to follow.
+2. **Test scenarios.** The scenarios to cover, with IDs.
+
+Headings with a fallback when missing:
+
+3. **Scope.** Either a table of the files and classes allowed to change, or the line `Open: choose the files the scenarios need and report each one.` Also lists what is not in scope. If missing, treat the scope as open.
+4. **Behavior to preserve.** Existing behavior that must not change, and the tests that cover it. If missing, every existing test must still pass.
+5. **Repository rules.** Links to the documents to follow. If missing, use the guides named in the project profile.
 
 Optional headings:
 
 6. **Release gating.** The configuration key, or the condition, that keeps new behavior unreachable until it is met.
 7. **Design**, **Business-to-code translation**, and **Contracts.** The design to follow and the exact names and signatures to use.
 
-If a required heading is missing, report `Status: blocked` and name the missing heading. Do not infer its content.
+If Task or Test scenarios is missing, report `Status: blocked` and name the missing heading. Do not infer its content. When you use a fallback, list it under `Decisions not in artifact`, for example `No Scope heading: treated as open.`
 
 ## Before you start
 
@@ -86,6 +89,7 @@ Decisions not in artifact: [list] or none
 2. New names the artifact did not give: classes, methods, functions, configuration keys.
 3. Where you placed new tests, when the artifact did not say.
 4. Any departure from the Design section, and why.
+5. Each fallback you used for a missing heading.
 
 If the tests could not be made to pass, report:
 

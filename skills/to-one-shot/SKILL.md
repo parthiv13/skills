@@ -1,13 +1,13 @@
 ---
 name: to-one-shot
-description: "Plan a code change as test scenarios and implement it through the coder agent, with no PRD or spec. Use for changes that have no documentation behind them."
+description: "Plan a code change as approved test scenarios in a one-shot artifact, with no PRD or spec, for to-code to implement and take to a pull request. Use for changes that have no documentation behind them."
 argument-hint: "Describe the change you want. Name the files or behavior involved if you know them."
 disable-model-invocation: true
 ---
 
-# Undocumented change to tested code
+# Undocumented change to an approved plan
 
-Turn a change request into approved test scenarios, then have the `coder` agent implement it. The only plan is the test scenarios. There is no design document, class inventory, or file allow-list.
+Turn a change request into approved test scenarios in a one-shot artifact. The `to-code` skill implements the artifact and takes it to a pull request. The only plan is the test scenarios. There is no design document, class inventory, or file allow-list.
 
 Prerequisite: a change request in your words. Optional source material, such as notes or an artifact, is read as evidence, not as approved requirements.
 
@@ -24,9 +24,12 @@ Done when you can state the requested behavior and the existing behavior it must
 Create `to-one-shot/<slug>.md` from [the template](./references/one-shot-artifact-template.md). It contains:
 
 1. The request, in the user's terms.
-2. Test scenarios, decided and written by the [test-scenarios](../test-scenarios/SKILL.md) skill.
-3. Existing behavior to preserve.
-4. Links to the repository rules the coder must follow.
+2. An open scope, plus anything the user excluded.
+3. Test scenarios, decided and written by the [test-scenarios](../test-scenarios/SKILL.md) skill.
+4. Existing behavior to preserve.
+5. Links to the repository rules the coder must follow.
+
+The template follows the artifact contract in the `coder` agent. Keep its headings.
 
 Do not add a class inventory, call tree, or file list. Use names that already exist in the code.
 
@@ -34,26 +37,19 @@ Do not add a class inventory, call tree, or file list. Use names that already ex
 
 Follow the presenting and approval rules in [test-scenarios](../test-scenarios/SKILL.md). The user may go through as many rounds as needed.
 
-Do not invoke `coder` until the user explicitly approves the scenarios.
+Done when the user has explicitly approved the scenarios.
 
-## 4. Implement through the `coder` agent
+## 4. Hand off
 
-Delegate to the repository's `coder` agent. Pass the artifact content unchanged and include its path.
+Tell the user the artifact path. Say that `to-code` implements it: it creates the branch, runs `coder`, verifies, reviews the change with the user locally, and opens the pull request. Do not start `to-code` or `coder`. The user decides when to run it.
 
-1. On `Status: pass`, report the result to the user.
-2. On `Status: fail` or `Status: blocked`, show the report and ask what to do. The user may want to refine the scenarios and run `coder` again. Update the artifact in place, get approval for the changed scenarios as in step 3, then re-invoke `coder`. Do not re-invoke `coder`, change scenarios, or weaken a test unless the user says so.
-3. If `coder` or delegation is unavailable, tell the user. Do not write the implementation yourself.
+If `to-code` later reports a `fail` or `blocked` result and the user wants to refine the scenarios, update this artifact in place and get approval for the changed scenarios as in step 3.
 
-## 5. Report
-
-Give the files `coder` created and updated, the tests it ran with results, and anything left unverified.
-
-Done when the user approved the scenarios and `coder` reported `pass`, or a `fail` or `blocked` report was shown to the user.
+Done when the user has the artifact path.
 
 ## Boundaries
 
-- Do not edit production or test code yourself.
-- Do not commit, push, or open a pull request without the user's approval of the exact files and message.
-- Never weaken or remove a test to get a pass.
-- Preserve unrelated working-tree changes.
+- Do not edit production or test code.
+- Do not create branches, commit, push, or open a pull request.
 - Do not start any other workflow or agent.
+- Preserve unrelated working-tree changes.

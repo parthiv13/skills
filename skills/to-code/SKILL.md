@@ -61,13 +61,14 @@ Done when the coder reports `pass` and every changed file is allowed by the arti
 1. Read the testing guide in the project profile. Run the artifact's required tests with the project's test command. Also run its named existing-behavior tests. Run the lint command from the project profile on the changed files. These runs are the gate; do not rely on the coder's report of its own runs.
 2. Check that every new test that exercises existing code appears in the coder's `Failed before change` list. Such a test missing from that list is an open issue.
 3. Honor release gates and configuration constraints stated in the artifact. Do not introduce a gate when none is required.
-4. Review the diff for correctness, regressions, and scope. Fix in-scope issues through the `coder` agent and rerun affected tests. Present findings that require changes beyond the artifact before editing.
+4. Review the changes with the [code-review](../code-review/SKILL.md) skill. Pass the artifact path as the task, and review the branch against the base it was created from.
+5. Fix each required or **Critical:** finding that stays within the artifact's Scope and design through the `coder` agent, then rerun the affected tests and run the review again. Present every finding that needs a change beyond the artifact, such as a rename, a restructuring, or a file outside Scope, as a numbered point before editing. Present the remaining findings in Section 6.
 
-Done when the required tests, existing-behavior checks, and lint pass, every new test that exercises existing code failed before the change, and the diff has no open in-scope correctness issue.
+Done when the required tests, existing-behavior checks, and lint pass, every new test that exercises existing code failed before the change, and the code review has no open required or **Critical:** finding that the user has not seen.
 
 ## 6. Review with the user locally
 
-Present the implementation and changed call path for local review. Compare the behavior with the artifact's design, link each changed file, and state its responsibility. List each item from the coder's `Decisions not in artifact` as its own numbered point for the user to accept or change. An accepted decision that changes a name, file, or design goes through Section 7.
+Present the implementation and changed call path for local review. Compare the behavior with the artifact's design, link each changed file, and state its responsibility. List each item from the coder's `Decisions not in artifact` as its own numbered point for the user to accept or change. An accepted decision that changes a name, file, or design goes through Section 7. List each open code review finding, and each finding fixed in Section 5, as its own numbered point.
 
 1. Number each point the user may want to comment on, using stable hierarchical numbers such as `1.1` for a file and `1.1.1` for a method.
 2. For each comment the user accepts, have the `coder` agent make the change using a step block that names the files, comment, and affected artifact sections. Rerun affected tests.
